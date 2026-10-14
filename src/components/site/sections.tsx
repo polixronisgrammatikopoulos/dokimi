@@ -15,9 +15,17 @@ import {
   SunMedium,
   Award,
   Check,
+  BadgeCheck,
+  Quote,
+  Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Reveal } from "@/components/site/reveal";
+import {
+  Reveal,
+  RevealStagger,
+  RevealItem,
+  GrowLine,
+} from "@/components/site/reveal";
 import { cn } from "@/lib/utils";
 
 /* ---------------- Section header ---------------- */
@@ -72,6 +80,136 @@ export function SectionHeader({
   );
 }
 
+/* ---------------- Εγγυήσεις (TrustBar) ---------------- */
+
+const TRUST_ITEMS = [
+  {
+    icon: ShieldCheck,
+    title: "10 Χρόνια Εγγύηση",
+    text: "Πλήρη εγγύηση εξοπλισμού σε κάθε εγκατάσταση — με γραπτή δέσμευση.",
+  },
+  {
+    icon: BadgeCheck,
+    title: "Πιστοποιημένοι Εγκαταστάτες",
+    text: "Μηχανικοί και τεχνίτες με πολυετή εμπειρία αποκλειστικά σε ΑΠΕ.",
+  },
+  {
+    icon: SunMedium,
+    title: "Premium Εξοπλισμός",
+    text: "Αυστηρά επιλεγμένα Deye & V-TAC με ευρωπαϊκές πιστοποιήσεις.",
+  },
+  {
+    icon: MapPinned,
+    title: "Τοπική Υποστήριξη",
+    text: "Γρήγορη εξυπηρέτηση σε Θεσσαλονίκη και όλη τη Βόρεια Ελλάδα.",
+  },
+];
+
+export function TrustBar() {
+  return (
+    <section className="border-b border-border bg-white py-12 sm:py-14" aria-label="Εγγυήσεις και πιστοποιήσεις">
+      <RevealStagger className="mx-auto grid max-w-7xl gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:gap-6 lg:px-8">
+        {TRUST_ITEMS.map((item) => (
+          <RevealItem key={item.title} className="h-full">
+            <div className="flex h-full items-start gap-4 rounded-2xl border border-border bg-card p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#0d4c74]/10">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#2c7a3e] shadow-md shadow-[#2c7a3e]/25">
+                <item.icon className="h-6 w-6 text-white" aria-hidden />
+              </span>
+              <div>
+                <h3 className="font-heading text-[15px] font-extrabold leading-snug text-[#0d4c74]">
+                  {item.title}
+                </h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                  {item.text}
+                </p>
+              </div>
+            </div>
+          </RevealItem>
+        ))}
+      </RevealStagger>
+    </section>
+  );
+}
+
+/* ---------------- Μαρτυρίες Πελατών ---------------- */
+
+/* Ενδεικτικές μαρτυρίες — αντικαταστήστε τις με πραγματικές κριτικές πελατών. */
+const TESTIMONIALS = [
+  {
+    initials: "ΓΜ",
+    name: "Γιώργος Μ.",
+    place: "Εξοχικό · Χαλκιδική",
+    color: "bg-[#2c7a3e]",
+    text:
+      "Μας έστησαν αυτόνομο σύστημα 10 kW στο εξοχικό μέσα σε τρεις εβδομάδες από την παραγγελία. Καθαρή δουλειά, καθημερινή ενημέρωση, και το σύστημα τρέχει άψογα από τον πρώτο καλοκαίρι.",
+  },
+  {
+    initials: "ΜΚ",
+    name: "Μαρία Κ.",
+    place: "Κατοικία · Πανόραμα",
+    color: "bg-[#0d4c74]",
+    text:
+      "Ο λογαριασμός του ρεύματος έπεσε από 210 σε 34 ευρώ τον πρώτο χρόνο. Η προσφορά είχε αναλυτικά όλα τα κόστη — εξοπλισμό, άδειες, εργασία — χωρίς καμία έκπληξη στο τέλος.",
+  },
+  {
+    initials: "ΔΤ",
+    name: "Δημήτρης Τ.",
+    place: "Αγρόκτημα · Σέρρες",
+    color: "bg-[#256d34]",
+    text:
+      "Είχα ζητήσει προσφορές από τρεις εταιρείες. Η ProΣτέγη ήταν η μόνη που ήρθε στο χωράφι, μέτρησε την κατανάλωση του αντλιοστασίου και πρότεινε το μέγεθος που πραγματικά χρειαζόμουν.",
+  },
+];
+
+export function Testimonials() {
+  return (
+    <section className="bg-[#f5f3ec] py-16 sm:py-24" aria-label="Μαρτυρίες πελατών">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          eyebrow="Μαρτυρίες Πελατών"
+          title="Τι Λένε Όσοι Μας Εμπιστεύθηκαν"
+          subtitle="Εγκαταστάσεις σε σπίτια, εξοχικά και αγροκτήματα σε όλη τη Βόρεια Ελλάδα — αυτό λένε οι ίδιοι."
+        />
+
+        <RevealStagger className="grid gap-5 md:grid-cols-3">
+          {TESTIMONIALS.map((t) => (
+            <RevealItem key={t.name} className="h-full">
+              <figure className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[#0d4c74]/10">
+                <div className="flex items-center justify-between">
+                  <div className="flex gap-0.5" aria-label="Αξιολόγηση 5 από 5 αστέρια">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} className="h-4 w-4 fill-[#f0b429] text-[#f0b429]" aria-hidden />
+                    ))}
+                  </div>
+                  <Quote className="h-7 w-7 text-[#2c7a3e]/15" aria-hidden />
+                </div>
+                <blockquote className="mt-4 flex-1 text-[15px] leading-relaxed text-foreground/85">
+                  «{t.text}»
+                </blockquote>
+                <figcaption className="mt-5 flex items-center gap-3 border-t border-border pt-4">
+                  <span
+                    className={cn(
+                      "flex h-11 w-11 items-center justify-center rounded-full font-heading text-sm font-extrabold text-white",
+                      t.color
+                    )}
+                    aria-hidden
+                  >
+                    {t.initials}
+                  </span>
+                  <div>
+                    <p className="font-heading text-sm font-extrabold text-[#0d4c74]">{t.name}</p>
+                    <p className="text-xs font-medium text-muted-foreground">{t.place}</p>
+                  </div>
+                </figcaption>
+              </figure>
+            </RevealItem>
+          ))}
+        </RevealStagger>
+      </div>
+    </section>
+  );
+}
+
 /* ---------------- Λύσεις ---------------- */
 
 const SOLUTIONS = [
@@ -123,9 +261,9 @@ export function Solutions() {
           subtitle="Από πλήρη ενεργειακή αυτονομία έως έξυπνη διασύνδεση με το δίκτυο — σχεδιάζουμε το σύστημα που καλύπτει ακριβώς τις ανάγκες σας."
         />
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {SOLUTIONS.map((solution, i) => (
-            <Reveal key={solution.title} delay={i * 0.08} className="h-full">
+        <RevealStagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {SOLUTIONS.map((solution) => (
+            <RevealItem key={solution.title} className="h-full">
               <article
                 className={cn(
                   "group flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1.5",
@@ -184,18 +322,18 @@ export function Solutions() {
                 <Link
                   href={`/fotovoltaika#${solution.slug}`}
                   className={cn(
-                    "mt-5 inline-flex items-center gap-1 text-sm font-bold transition-colors",
+                    "mt-5 inline-flex items-center gap-1 text-sm font-bold underline decoration-2 underline-offset-4 transition-colors",
                     solution.featured
-                      ? "text-[#7fc795] hover:text-white"
-                      : "text-[#2c7a3e] hover:text-[#256d34]"
+                      ? "text-white decoration-white/50 hover:decoration-white"
+                      : "text-[#2c7a3e] decoration-[#2c7a3e]/40 hover:text-[#256d34] hover:decoration-[#256d34]"
                   )}
                 >
                   Μάθετε περισσότερα →
                 </Link>
               </article>
-            </Reveal>
+            </RevealItem>
           ))}
-        </div>
+        </RevealStagger>
       </div>
     </section>
   );
@@ -252,9 +390,9 @@ export function Products() {
           subtitle="Συνεργαζόμαστε με τους πιο αξιόπιστους κατασκευαστές παγκοσμίως, ώστε κάθε εγκατάσταση να λειτουργεί αψεγίδιαστα για δεκαετίες."
         />
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {PRODUCTS.map((product, i) => (
-            <Reveal key={product.title} delay={i * 0.08} className="h-full">
+        <RevealStagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {PRODUCTS.map((product) => (
+            <RevealItem key={product.title} className="h-full">
               <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[#0d4c74]/10">
                 <div className="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-white to-[#eef1ea] p-5">
                   <Image
@@ -287,9 +425,9 @@ export function Products() {
                   </div>
                 </div>
               </article>
-            </Reveal>
+            </RevealItem>
           ))}
-        </div>
+        </RevealStagger>
 
         <Reveal delay={0.2} className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link href="/epikoinonia">
@@ -354,17 +492,14 @@ export function Process() {
           subtitle="Απλή, διαφανής και γρήγορη διαδικασία — εσείς κερδίζετε χρόνο και χρήμα."
         />
 
-        <div className="relative grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {/* connector line (desktop) */}
-          <div
-            aria-hidden
-            className="absolute left-0 right-0 top-8 hidden h-0.5 bg-gradient-to-r from-[#2c7a3e]/20 via-[#2c7a3e]/45 to-[#2c7a3e]/20 lg:block"
-          />
+        <RevealStagger className="relative grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {/* γραμμή σύνδεσης που "ζωγραφίζεται" στο scroll (desktop) */}
+          <GrowLine className="absolute left-0 right-0 top-8 hidden h-0.5 bg-gradient-to-r from-[#2c7a3e]/20 via-[#2c7a3e]/50 to-[#2c7a3e]/20 lg:block" />
           {STEPS.map((step, i) => (
-            <Reveal key={step.title} delay={i * 0.1} className="relative">
+            <RevealItem key={step.title} className="relative">
               <div className="flex h-full flex-col items-start">
                 <div className="relative z-10 flex items-center gap-4">
-                  <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[#2c7a3e] text-white shadow-lg shadow-[#2c7a3e]/30">
+                  <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[#2c7a3e] text-white shadow-lg shadow-[#2c7a3e]/30 transition-transform duration-300 hover:rotate-3 hover:scale-105">
                     <step.icon className="h-7 w-7" aria-hidden />
                   </span>
                   <span className="font-heading text-5xl font-extrabold text-[#0d4c74]/10">
@@ -378,9 +513,9 @@ export function Process() {
                   {step.description}
                 </p>
               </div>
-            </Reveal>
+            </RevealItem>
           ))}
-        </div>
+        </RevealStagger>
       </div>
     </section>
   );
@@ -390,14 +525,14 @@ export function Process() {
 
 const REASONS = [
   {
-    icon: Award,
-    title: "Εξειδίκευση στην Αυτονομία",
-    text: "Επικεντρωνόμαστε σε αυτόνομα και υβριδικά συστήματα — τη μεγαλύτερη εξειδίκευση που απαιτεί σωστή διαστασιολόγηση μπαταριών.",
+    icon: ShieldCheck,
+    title: "10 Χρόνια Εγγύηση",
+    text: "Γραπτή εγγύηση εξοπλισμού 10 ετών σε κάθε εγκατάσταση — επένδυση προστατευμένη σε βάθος χρόνου.",
   },
   {
-    icon: ShieldCheck,
-    title: "Πιστοποιημένος Εξοπλισμός",
-    text: "Μόνο τεκμηριωμένες μάρκες (Deye, V-TAC) με ευρωπαϊκές πιστοποιήσεις και εγγυήσεις κατασκευαστή.",
+    icon: Award,
+    title: "Εξειδίκευση στην Αυτονομία",
+    text: "Επικεντρωνόμαστε σε αυτόνομα και υβριδικά συστήματα — τη μεγαλύτερη τεχνογνωσία που απαιτεί η σωστή διαστασιολόγηση μπαταριών.",
   },
   {
     icon: MapPinned,
@@ -452,19 +587,21 @@ export function WhyUs() {
             dark
           />
           <div className="grid gap-5 sm:grid-cols-2 lg:gap-6">
-            {REASONS.map((reason, i) => (
-              <Reveal key={reason.title} delay={i * 0.08}>
-                <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm transition-colors hover:bg-white/10">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#2c7a3e]">
-                    <reason.icon className="h-6 w-6 text-white" aria-hidden />
-                  </span>
-                  <h3 className="mt-3.5 font-heading text-base font-extrabold text-white">
-                    {reason.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-white/70">{reason.text}</p>
-                </div>
-              </Reveal>
-            ))}
+            <RevealStagger className="contents">
+              {REASONS.map((reason) => (
+                <RevealItem key={reason.title} className="h-full">
+                  <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm transition-colors hover:bg-white/10">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#2c7a3e]">
+                      <reason.icon className="h-6 w-6 text-white" aria-hidden />
+                    </span>
+                    <h3 className="mt-3.5 font-heading text-base font-extrabold text-white">
+                      {reason.title}
+                    </h3>
+                    <p className="mt-1.5 text-sm leading-relaxed text-white/75">{reason.text}</p>
+                  </div>
+                </RevealItem>
+              ))}
+            </RevealStagger>
           </div>
           <Reveal delay={0.25} className="mt-8">
             <a href="/epikoinonia">

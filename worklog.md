@@ -61,3 +61,29 @@ Stage Summary:
 - Παραδοτέο: 7σέλιδο (multi-page) Next.js 16 site με 3D hero σκηνή Three.js, πλήρες σεμνοπλούσιο SEO (JSON-LD x7 τύπων, sitemap, robots AI-friendly, llms.txt, canonical, OG) και ελληνικό content εμπλουτισμένο με λέξεις-κλειδιά
 - Νέα αρχεία: src/components/site/{solar-3d,hero-3d,page-hero,json-ld}.tsx, src/lib/{seo,faq-data}.ts, src/app/{sitemap,robots}.ts, src/app/{fotovoltaika,proionta,ypologistis,etaireia,faq,epikoinonia}/page.tsx, public/llms.txt
 - Τροποποιημένα: layout.tsx (template metadata + LocalBusiness JSON-LD), page.tsx (hub), header/footer (page links), hero.tsx (μόνο StatsBar), sections.tsx (page links), faq.tsx (props + re-export)
+
+---
+Task ID: 3
+Agent: Super Z (main agent)
+Task: Αναβάθμιση γραφικών/UX σύμφωνα με νέες απαιτήσεις: πλούσια scroll animations παντού, σωστή αντίθεση κουμπιών/link, 3D σκηνή εμπνευσμένη από το λογότυπο, επαγγελματικά κείμενα με στοιχεία εμπιστοσύνης, ενίσχυση SEO.
+
+Work Log:
+- Πλήρης επανασχεδίαση 3D σκηνής (solar-3d.tsx): σπίτι με πράσινη στέγη, κεραμίδα, καμινάδα, παράθυρα/πόρτα + φωτοβολταϊκά πάνελ στις δύο κλίσεις + αυτόνομο πάνελ σε στύλο (όπως στο λογότυπο) + ήλιος με 12 περιστρεφόμενες ακτίνες, πράσινος λόφος, δέντρα/θάμνοι, Environment/Lightformer reflections χωρίς εξωτερικά assets, bg-sky-scene gradient
+- Προσβασιμότητα/απόδοση 3D: quality tiers (lowSpec <820px: dpr 0.75-1, χωρίς Environment, Sparkles 26, ContactShadows 128px), IntersectionObserver που παύει το rendering όταν η σκηνή είναι εκτός οθόνης, performance min 0.4
+- Νέο animation system (reveal.tsx): Reveal (fade+rise+optional blur), RevealStagger/RevealItem (διαδοχικές εμφανίσεις), Counter (count-up με el-GR μορφοποίηση), GrowLine
+- Νέο ScrollProgress component (λογοχρωματική γραμμή προόδου κορυφής) στο layout
+- StatsBar: animated counters (1.500+/85%/25+ μετράνε στο scroll), id="statistika"
+- Νέα sections: TrustBar (10 Χρόνια Εγγύηση, Πιστοποιημένοι Εγκαταστάτες, Premium Εξοπλισμός, Τοπική Υποστήριξη) και Testimonials (3 μαρτυρίες με αστέρια/initials — ενδεικτικές, με σχόλιο για αντικατάσταση με πραγματικές)
+- Διόρθωση αντίθεσης: link "Μάθετε περισσότερα" σε featured πράσινη κάρτα από ανοιχτό πράσινο → ΛΕΥΚΟ με υπογράμμιση, και underline σε όλα τα card links
+- Hero: ενημερωμένο επαγγελματικό κείμενο (Θεσσαλονίκη/Β. Ελλάδα/πραγματικά δεδομένα), trust points με 10 χρόνια εγγύηση, scroll cue "ΕΞΕΡΕΥΝΗΣΤΕ"
+- WhyUs: αντικατάσταση κάρτας με "10 Χρόνια Εγγύηση" (USP από το παλιό site),Process: GrowLine connector
+- Footer: ωράριο λειτουργίας (Δευ-Παρ 08:00-17:00, Σαβ 08:00-14:00) + chip "10 Χρόνια Εγγύηση Εξοπλισμού"
+- SEO: Organization JSON-LD + knowsAbout (8 όροι ΑΠΕ), όλα τα metadata/canonical/sitemap/robots/llms.txt από προηγούμενο task παραμένουν
+- Διόρθωση TS error: etaireia/page.tsx λάθος import του next/image (named → default)
+- scripts/check_db.js, cleanup_db.js → .mjs ESM για καθαρό lint
+- Επαλήθευση agent-browser: desktop hero/3D σωστό, counters πιάνουν mid-animation (1.367+→1.500+), TrustBar/Testimonials/Process render, featured link λευκό, φόρμα /epikoinonia υποβολή → toast «Το αίτημά σας στάλθηκε!» + εγγραφή στη βάση (cleanup μετά), /fotovoltaika breadcrumbs+πίνακας, console χωρίς errors, lint 100% καθαρό, tsc καθαρό στο src
+- Σημείωση: το headless SwiftShader του sandbox κολλάει σε screenshot mobile με ενεργό WebGL canvas (ήταν και με την παλιά σκηνή) — η σελίδα παραμένει responsive (eval OK), real mobile browsers με hardware GL δεν επηρεάζονται· προστέθηκαν παρόλα τα quality tiers
+
+Stage Summary:
+- Παραδοτέο: αναβαθμισμένο multi-page site με 3D σκηνή «como το λογότυπο», πανταχού παρούσα scroll κίνηση (stagger/counters/grow-line/progress bar), διορθωμένη αντίθεση κουμπιών/link, στοιχεία εμπιστοσύνης (εγγύηση 10 ετών, μαρτυρίες, ωράρια), επαγγελματικό ελληνικό περιεχόμενο και πλήρες SEO
+- Αλλαγμένα αρχεία: solar-3d.tsx (rewrite), reveal.tsx (rewrite), hero.tsx (rewrite), scroll-progress.tsx (νέο), hero-3d.tsx, sections.tsx (TrustBar/Testimonials/contrast/stagger), layout.tsx, page.tsx, footer.tsx, globals.css, etaireia/page.tsx, scripts/*.mjs

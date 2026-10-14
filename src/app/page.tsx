@@ -8,6 +8,8 @@ import {
   Products,
   Process,
   WhyUs,
+  TrustBar,
+  Testimonials,
   SectionHeader,
 } from "@/components/site/sections";
 import { SavingsCalculator } from "@/components/site/calculator";
@@ -51,9 +53,11 @@ export default function Home() {
       <main className="flex-1">
         <Hero3D />
         <StatsBar />
+        <TrustBar />
         <Solutions />
         <Products />
         <Process />
+        <Testimonials />
         <WhyUs />
 
         {/* Υπολογιστής εξοικονόμησης */}

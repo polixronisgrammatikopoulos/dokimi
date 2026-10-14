@@ -7,7 +7,7 @@ import { WhyUs, Process, SectionHeader } from "@/components/site/sections";
 import { Reveal } from "@/components/site/reveal";
 import { JsonLd } from "@/components/site/json-ld";
 import { Button } from "@/components/ui/button";
-import { Image as nextImage } from "next/image";
+import Image from "next/image";
 import { buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
@@ -73,7 +73,7 @@ export default function EtaireiaPage() {
           <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
             <Reveal className="relative">
               <div className="relative overflow-hidden rounded-[1.75rem] shadow-2xl shadow-[#0d4c74]/15">
-                <nextImage
+                <Image
                   src="/technician.jpg"
                   alt="Τεχνικός της ProΣτέγη εγκαθιστά φωτοβολταϊκά πάνελ σε μεσογειακή στέγη"
                   width={1152}

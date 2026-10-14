@@ -3,6 +3,7 @@ import { Manrope, Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { JsonLd } from "@/components/site/json-ld";
+import { ScrollProgress } from "@/components/site/scroll-progress";
 import { CORE_KEYWORDS, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 const headingFont = Manrope({
@@ -92,6 +93,16 @@ const organizationJsonLd = {
   logo: `${SITE_URL}/logo-square.png`,
   description:
     "Σχεδιασμός, εγκατάσταση και συντήρηση αυτόνων και διασυνδεδεμένων φωτοβολταϊκών συστημάτων στη Θεσσαλονίκη.",
+  knowsAbout: [
+    "αυτόνομα φωτοβολταϊκά συστήματα",
+    "net billing",
+    "υβριδικά φωτοβολταϊκά",
+    "μπαταρίες λιθίου LiFePO4",
+    "inverter Deye",
+    "ενεργειακή αυτονομία",
+    "φωτοβολταϊκά για εξοχικό",
+    "φωτοβολταϊκά για αγρόκτημα",
+  ],
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "+302310644512",
@@ -168,6 +179,7 @@ export default function RootLayout({
       <body
         className={`${headingFont.variable} ${bodyFont.variable} font-sans antialiased bg-background text-foreground`}
       >
+        <ScrollProgress />
         <JsonLd data={organizationJsonLd} />
         <JsonLd data={localBusinessJsonLd} />
         <JsonLd data={websiteJsonLd} />

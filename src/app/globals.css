@@ -157,6 +157,17 @@
   .bg-leaf-gradient {
     background: linear-gradient(135deg, #2c7a3e 0%, #256d34 60%, #1d5a2a 100%);
   }
+  /* ουρανός πίσω από τη 3D σκηνή — από γαλάζιο σε ζεστό κρεμ στον ορίζοντα */
+  .bg-sky-scene {
+    background: linear-gradient(
+      180deg,
+      #a5d4f0 0%,
+      #c8e6f6 34%,
+      #eef6ee 62%,
+      #f7f1dd 88%,
+      #f2ecda 100%
+    );
+  }
 }
 
 @keyframes float-y {

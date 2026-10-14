@@ -1,3 +1,3 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
 const p = new PrismaClient();
 p.contactLead.findMany().then(r => { console.log(JSON.stringify(r, null, 2)); return p.$disconnect(); }).catch(e => { console.error(e.message); process.exit(1); });

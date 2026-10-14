@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { Clock, MapPin, Phone, Mail, ShieldCheck } from "lucide-react";
 
 const QUICK_LINKS = [
   { href: "/", label: "Αρχική" },
@@ -39,7 +39,11 @@ export function SiteFooter() {
             Σχεδιάζουμε, εγκαθιστούμε και συντηρούμε αυτόνομα και διασυνδεδεμένα
             φωτοβολταϊκά συστήματα τελευταίας γενιάς με πιστοποιημένο εξοπλισμό
             Deye &amp; V-TAC, στη Θεσσαλονίκη και σε όλη τη Βόρεια Ελλάδα. Δωρεάν
-            μελέτη, διαφανείς προσφορές και διά βίου τεχνική υποστήριξη.
+            μελέτη, διαφανείς προσφορές και 10 χρόνια εγγύηση εξοπλισμού.
+          </p>
+          <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white/85">
+            <ShieldCheck className="h-4 w-4 text-[#7fc795]" aria-hidden />
+            10 Χρόνια Εγγύηση Εξοπλισμού
           </p>
         </div>
 
@@ -87,6 +91,14 @@ export function SiteFooter() {
                 <Mail className="h-5 w-5 shrink-0 text-[#7fc795]" aria-hidden />
                 info@prostegi.gr
               </a>
+            </li>
+            <li className="flex items-start gap-3">
+              <Clock className="mt-0.5 h-5 w-5 shrink-0 text-[#7fc795]" aria-hidden />
+              <span>
+                Δευτέρα – Παρασκευή: 08:00 – 17:00
+                <br />
+                Σάββατο: 08:00 – 14:00
+              </span>
             </li>
           </ul>
         </div>

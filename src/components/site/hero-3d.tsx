@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { ArrowRight, BadgeCheck, Sun } from "lucide-react";
+import { ArrowRight, BadgeCheck, ChevronDown, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/site/reveal";
 import { useReducedMotion } from "framer-motion";
@@ -24,9 +24,9 @@ function HeroCanvasFallback() {
 }
 
 const TRUST_POINTS = [
-  "Δωρεάν μελέτη & προσφορά",
-  "Πιστοποιημένος εξοπλισμός Deye · V-TAC",
-  "Τοπική τεχνική υποστήριξη",
+  "Δωρεάν μελέτη με πραγματικά δεδομένα κατανάλωσης",
+  "Εξοπλισμός Deye · V-TAC — 10 χρόνια εγγύηση",
+  "Τοπική ομάδα στη Θεσσαλονίκη",
 ];
 
 export function Hero3D() {
@@ -81,10 +81,10 @@ export function Hero3D() {
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
             Στην <strong className="font-semibold text-foreground">ProΣτέγη</strong>{" "}
-            σχεδιάζουμε και εγκαθιστούμε φωτοβολταϊκά συστήματα τελευταίας γενιάς,
-            προσαρμοσμένα στις ανάγκες σας. Ζήστε με αυτονομία και εξοικονόμηση
-            ενέργειας — με πιστοποιημένο εξοπλισμό Deye &amp; V-TAC και εγγύηση
-            απόδοσης 25+ ετών.
+            σχεδιάζουμε και εγκαθιστούμε φωτοβολταϊκά συστήματα για κατοικίες,
+            επιχειρήσεις και αγροκτήματα — στη Θεσσαλονίκη και σε όλη τη Βόρεια
+            Ελλάδα. Μελέτη με πραγματικά δεδομένα, πιστοποιημένο εξοπλισμό Deye
+            &amp; V-TAC και υποστήριξη που δεν σταματά στην εγκατάσταση.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -128,7 +128,7 @@ export function Hero3D() {
               aria-hidden
               className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-[#2c7a3e]/15 to-[#0d4c74]/15"
             />
-            <div className="relative h-[300px] overflow-hidden rounded-[1.75rem] shadow-2xl shadow-[#0d4c74]/20 sm:h-[380px] lg:h-[440px]">
+            <div className="bg-sky-scene relative h-[300px] overflow-hidden rounded-[1.75rem] shadow-2xl shadow-[#0d4c74]/20 sm:h-[380px] lg:h-[440px]">
               <Solar3DCanvas reduceMotion={!!reduceMotion} />
               <div
                 aria-hidden
@@ -172,6 +172,18 @@ export function Hero3D() {
           </div>
         </Reveal>
       </div>
+
+      {/* οδηγός κύλισης */}
+      {!reduceMotion && (
+        <a
+          href="#statistika"
+          aria-label="Κάντε scroll για να δείτε περισσότερα"
+          className="absolute bottom-5 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1 text-[#0d4c74]/55 transition-colors hover:text-[#0d4c74] lg:flex"
+        >
+          <span className="text-[11px] font-bold uppercase tracking-widest">Εξερευνήστε</span>
+          <ChevronDown className="h-5 w-5 animate-bounce" aria-hidden />
+        </a>
+      )}
     </section>
   );
 }
