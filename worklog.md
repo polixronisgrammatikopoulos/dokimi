@@ -34,3 +34,30 @@ Stage Summary:
 - Βασικά αρχεία: src/app/page.tsx, src/app/layout.tsx, src/app/globals.css, src/app/api/contact/route.ts, src/components/site/{header,hero,sections,calculator,faq,contact-form,footer,reveal}.tsx, prisma/schema.prisma (ContactLead)
 - Assets: public/logo.png (transparent), public/logo-square.png, public/hero-solar.jpg, public/technician.jpg, public/products/*
 - Brand: green #2c7a3e, navy #0d4c74, cream #f2f0e9, fonts Manrope/Inter (greek subset)
+
+---
+Task ID: 2
+Agent: Super Z (main agent)
+Task: Αναβάθμιση ιστοσελίδας ProΣτέγη με 3D γραφικά, ξεχωριστές σελίδες ανά ενότητα (multi-page) και πλήρες SEO για Google & AI assistants (Gemini κ.λπ.)
+
+Work Log:
+- Εγκατάσταση three.js + @react-three/fiber@9 + @react-three/drei@10 (React 19 compatible)
+- Δημιουργία 3D σκηνής φωτοβολταϊκού πάρκου (solar-3d.tsx): πάνελ με κελιά, δέντρα low-poly, εκλυμμένος ήλιος με halo, Sparkles σωματίδια, ContactShadows, mouse-parallax κάμερα, αργή περιστροφή, support prefers-reduced-motion — χωρίς εξωτερικά assets (καθαρά φώτα/γεωμετρία)
+- hero-3d.tsx: client wrapper με dynamic import ssr:false, fallback loading, floating stat cards, badge "3D Εμπειρία"
+- Multi-page δομή: / (hub με 3D hero), /fotovoltaika (4 λύσεις με anchors + πίνακας σύγκρισης), /proionta (products + deep dives Deye/V-TAC/πάνελ), /ypologistis (calculator + παράγοντες), /etaireia (ποιοι είμαστε + αξίες), /faq (10 ερωτήσεις), /epikoinonia (φόρμα + χάρτης Google Maps iframe)
+- PageHero component με breadcrumbs (visible + BreadcrumbList JSON-LD)
+- Header: Next Link + usePathname active state, 7 nav items, mobile Sheet μενού; Footer: links σε όλες τις σελίδες
+- sections.tsx: κάρτες λύσεων → /fotovoltaika#slug, CTA σε pages αντί anchors
+- FAQ: νέο κοινό data αρχείο src/lib/faq-data.ts (server-safe) + 5 νέες ερωτήσεις (χώρος, συννεφιά/χιόνι, blackout, άδειες, επιδοτήσεις)
+- SEO: buildPageMetadata helper (title/description/keywords/canonical/OG/Twitter ανά σελίδα), CORE_KEYWORDS ~20 λέξεις-κλειδιά, geo meta tags
+- JSON-LD: Organization + ElectricalContractor (LocalBusiness με geo, offer catalog, areaServed) + WebSite στο layout· Service στο /fotovoltaika· ItemList Products στο /proionta· FAQPage στο /faq και / (top 5)· BreadcrumbList παντού
+- src/app/sitemap.ts (7 URLs με priorities) + src/app/robots.ts (explicit allow σε Google-Extended/GPTBot/ChatGPT-User/ClaudeBot/PerplexityBot κ.ά. AI crawlers, disallow /api) — διαγράφηκε το static public/robots.txt
+- public/llms.txt: AI-readable σύνοψη επιχείρησης (υπηρεσίες, στοιχεία, νούμερα) για συστάσεις από Gemini/ChatGPT
+- Διόρθωση bug: FAQ_ITEMS από "use client" module σε server component → μεταφορά σε src/lib/faq-data.ts
+- Ρυθμίσεις 3D: κάμερα [8.6, 4.7, 10.2], badge μετακινήθηκε δεξιά (δεν καλύπτεται από floating card)
+- Επαλήθευση: lint καθαρό (μόνο pre-existing script errors άσχετα), 13/13 static pages στο build, όλα τα routes 200, 3D σκηνή renders σε desktop+mobile, φόρμα → POST /api/contact 200 + εγγραφή στη βάση (cleanup μετά), mobile menu πλοήγηση OK, κανένα console error
+
+Stage Summary:
+- Παραδοτέο: 7σέλιδο (multi-page) Next.js 16 site με 3D hero σκηνή Three.js, πλήρες σεμνοπλούσιο SEO (JSON-LD x7 τύπων, sitemap, robots AI-friendly, llms.txt, canonical, OG) και ελληνικό content εμπλουτισμένο με λέξεις-κλειδιά
+- Νέα αρχεία: src/components/site/{solar-3d,hero-3d,page-hero,json-ld}.tsx, src/lib/{seo,faq-data}.ts, src/app/{sitemap,robots}.ts, src/app/{fotovoltaika,proionta,ypologistis,etaireia,faq,epikoinonia}/page.tsx, public/llms.txt
+- Τροποποιημένα: layout.tsx (template metadata + LocalBusiness JSON-LD), page.tsx (hub), header/footer (page links), hero.tsx (μόνο StatsBar), sections.tsx (page links), faq.tsx (props + re-export)

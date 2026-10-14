@@ -1,13 +1,15 @@
 import Image from "next/image";
+import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
 
 const QUICK_LINKS = [
-  { href: "#arxiki", label: "Αρχική" },
-  { href: "#lyseis", label: "Λύσεις" },
-  { href: "#proionta", label: "Προϊόντα" },
-  { href: "#ypologistis", label: "Υπολογιστής Εξοικονόμησης" },
-  { href: "#faq", label: "Συχνές Ερωτήσεις" },
-  { href: "#epikoinonia", label: "Επικοινωνία" },
+  { href: "/", label: "Αρχική" },
+  { href: "/fotovoltaika", label: "Φωτοβολταϊκά Συστήματα" },
+  { href: "/proionta", label: "Προϊόντα & Εξοπλισμός" },
+  { href: "/ypologistis", label: "Υπολογιστής Εξοικονόμησης" },
+  { href: "/etaireia", label: "Η Εταιρεία μας" },
+  { href: "/faq", label: "Συχνές Ερωτήσεις" },
+  { href: "/epikoinonia", label: "Επικοινωνία" },
 ];
 
 export function SiteFooter() {
@@ -36,24 +38,25 @@ export function SiteFooter() {
           <p className="mt-5 max-w-md text-[15px] leading-relaxed text-white/70">
             Σχεδιάζουμε, εγκαθιστούμε και συντηρούμε αυτόνομα και διασυνδεδεμένα
             φωτοβολταϊκά συστήματα τελευταίας γενιάς με πιστοποιημένο εξοπλισμό
-            Deye & V-TAC, στη Θεσσαλονίκη και σε όλη τη Βόρεια Ελλάδα.
+            Deye &amp; V-TAC, στη Θεσσαλονίκη και σε όλη τη Βόρεια Ελλάδα. Δωρεάν
+            μελέτη, διαφανείς προσφορές και διά βίου τεχνική υποστήριξη.
           </p>
         </div>
 
         {/* Quick links */}
         <nav aria-label="Πλοήγηση υποσέλιδου">
           <h3 className="font-heading text-base font-bold uppercase tracking-wider text-white/90">
-            Γρήγοροι Σύνδεσμοι
+            Σελίδες
           </h3>
           <ul className="mt-4 space-y-2.5">
             {QUICK_LINKS.map((link) => (
               <li key={link.href}>
-                <a
+                <Link
                   href={link.href}
                   className="text-[15px] text-white/70 transition-colors hover:text-white"
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -68,7 +71,7 @@ export function SiteFooter() {
             <li className="flex items-start gap-3">
               <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-[#7fc795]" aria-hidden />
               <span>
-                Καραολή & Δημητρίου 242,
+                Καραολή &amp; Δημητρίου 242,
                 <br />
                 Εύοσμος 56431, Θεσσαλονίκη
               </span>
@@ -91,7 +94,7 @@ export function SiteFooter() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-center text-sm text-white/55 sm:flex-row sm:px-6 lg:px-8 lg:text-left">
-          <p>© {new Date().getFullYear()} ProΣτέγη — Όλα τα δικαιώματα κατοχυρωμένα.</p>
+          <p>© {new Date().getFullYear()} ProΣτέγη — Φωτοβολταϊκά Θεσσαλονίκη. Όλα τα δικαιώματα κατοχυρωμένα.</p>
           <p>Όροι Χρήσης · Πολιτική Απορρήτου · Cookies</p>
         </div>
       </div>

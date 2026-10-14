@@ -1,6 +1,8 @@
-import { Phone } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Phone } from "lucide-react";
 import { SiteHeader } from "@/components/site/header";
-import { Hero, StatsBar } from "@/components/site/hero";
+import { Hero3D } from "@/components/site/hero-3d";
+import { StatsBar } from "@/components/site/hero";
 import {
   Solutions,
   Products,
@@ -10,49 +12,44 @@ import {
 } from "@/components/site/sections";
 import { SavingsCalculator } from "@/components/site/calculator";
 import { FaqSection } from "@/components/site/faq";
-import { ContactForm } from "@/components/site/contact-form";
+import { FAQ_ITEMS } from "@/lib/faq-data";
 import { SiteFooter } from "@/components/site/footer";
 import { Reveal } from "@/components/site/reveal";
-import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, PhoneCall, Mail, Clock } from "lucide-react";
+import { JsonLd } from "@/components/site/json-ld";
+import { Button } from "@/components/ui/button";
+import { buildPageMetadata } from "@/lib/seo";
 
-const CONTACT_INFO = [
-  {
-    icon: MapPin,
-    title: "Διεύθυνση",
-    lines: ["Καραολή & Δημητρίου 242", "Εύοσμος 56431, Θεσσαλονίκη"],
-    href: "https://maps.google.com/?q=Καραολή+και+Δημητρίου+242,+Εύοσμος+56431",
-    action: "Οδηγίες",
-  },
-  {
-    icon: PhoneCall,
-    title: "Τηλέφωνα",
-    lines: ["2310 644 512", "6947 166 244"],
-    href: "tel:+302310644512",
-    action: "Καλέστε μας",
-  },
-  {
-    icon: Mail,
-    title: "Email",
-    lines: ["info@prostegi.gr"],
-    href: "mailto:info@prostegi.gr",
-    action: "Στείλτε email",
-  },
-  {
-    icon: Clock,
-    title: "Εξυπηρέτηση",
-    lines: ["Δευτέρα – Παρασκευή", "Σάββατο: με ραντεβού"],
-    href: "#epikoinonia",
-    action: "Φόρμα επικοινωνίας",
-  },
-];
+export const metadata = buildPageMetadata({
+  title:
+    "Φωτοβολταϊκά Συστήματα Θεσσαλονίκης — Αυτόνομα, Net Billing & Υβριδικά",
+  description:
+    "Η ProΣτέγη σχεδιάζει και εγκαθιστά αυτόνομα και διασυνδεδεμένα φωτοβολταϊκά συστήματα με εξοπλισμό Deye & V-TAC στη Θεσσαλονίκη. Δωρεάν μελέτη, πιστοποιημένος εξοπλισμός, διά βίου υποστήριξη.",
+  path: "/",
+  keywords: [
+    "φωτοβολταϊκά τιμές",
+    "φωτοβολταϊκά για σπίτι",
+    "αυτονομία ενέργειας",
+    "ηλιακά πάνελ Θεσσαλονίκη",
+  ],
+});
+
+const FAQ_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_ITEMS.slice(0, 5).map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+};
 
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
+      <JsonLd data={FAQ_SCHEMA} />
       <SiteHeader />
       <main className="flex-1">
-        <Hero />
+        <Hero3D />
         <StatsBar />
         <Solutions />
         <Products />
@@ -60,7 +57,11 @@ export default function Home() {
         <WhyUs />
 
         {/* Υπολογιστής εξοικονόμησης */}
-        <section id="ypologistis" className="bg-[#f5f3ec] py-16 sm:py-24" aria-label="Υπολογιστής εξοικονόμησης">
+        <section
+          id="ypologistis"
+          className="bg-[#f5f3ec] py-16 sm:py-24"
+          aria-label="Υπολογιστής εξοικονόμησης"
+        >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <SectionHeader
               eyebrow="Διαδραστικό Εργαλείο"
@@ -70,11 +71,26 @@ export default function Home() {
             <Reveal>
               <SavingsCalculator />
             </Reveal>
+            <Reveal delay={0.15} className="mt-8 flex justify-center">
+              <Link href="/ypologistis">
+                <Button
+                  variant="outline"
+                  className="h-12 rounded-xl border-[#0d4c74]/30 px-7 font-heading text-base font-bold text-[#0d4c74] hover:bg-[#0d4c74] hover:text-white"
+                >
+                  Πώς υπολογίζεται η εξοικονόμηση
+                  <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
+                </Button>
+              </Link>
+            </Reveal>
           </div>
         </section>
 
-        {/* Συχνές Ερωτήσεις */}
-        <section id="faq" className="bg-white py-16 sm:py-24" aria-label="Συχνές ερωτήσεις">
+        {/* Συχνές Ερωτήσεις — προεπισκόπηση */}
+        <section
+          id="faq"
+          className="bg-white py-16 sm:py-24"
+          aria-label="Συχνές ερωτήσεις"
+        >
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <SectionHeader
               eyebrow="Συχνές Ερωτήσεις"
@@ -82,55 +98,56 @@ export default function Home() {
               subtitle="Οι πιο συνηθισμένες ερωτήσεις των πελατών μας — απαντημένες με σαφήνεια και απλά λόγια."
             />
             <Reveal>
-              <FaqSection />
+              <FaqSection limit={3} />
+            </Reveal>
+            <Reveal delay={0.15} className="mt-8 flex justify-center">
+              <Link href="/faq">
+                <Button
+                  variant="outline"
+                  className="h-12 rounded-xl border-[#2c7a3e]/40 px-7 font-heading text-base font-bold text-[#256d34] hover:bg-[#2c7a3e] hover:text-white"
+                >
+                  Όλες οι Ερωτήσεις & Απαντήσεις
+                  <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
+                </Button>
+              </Link>
             </Reveal>
           </div>
         </section>
 
-        {/* Επικοινωνία */}
-        <section id="epikoinonia" className="bg-[#f5f3ec] py-16 sm:py-24" aria-label="Επικοινωνία">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeader
-              eyebrow="Επικοινωνία"
-              title="Ζητήστε τη Δωρεάν σας Μελέτη"
-              subtitle="Συμπληρώστε τη φόρμα ή καλέστε μας απευθείας — σας απαντάμε εντός μίας εργάσιμης ημέρας."
-            />
-
-            <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:gap-12">
-              {/* Info cards */}
-              <Reveal className="flex flex-col gap-4">
-                {CONTACT_INFO.map((item) => (
-                  <Card key={item.title} className="border-border shadow-sm transition-shadow hover:shadow-md">
-                    <CardContent className="flex items-start gap-4 p-5">
-                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent">
-                        <item.icon className="h-6 w-6 text-[#2c7a3e]" aria-hidden />
-                      </span>
-                      <div className="min-w-0">
-                        <h3 className="font-heading text-base font-extrabold text-[#0d4c74]">
-                          {item.title}
-                        </h3>
-                        {item.lines.map((line) => (
-                          <p key={line} className="text-[15px] leading-relaxed text-muted-foreground">
-                            {line}
-                          </p>
-                        ))}
-                        <a
-                          href={item.href}
-                          className="mt-1.5 inline-block text-sm font-bold text-[#2c7a3e] underline-offset-4 hover:underline"
-                        >
-                          {item.action} →
-                        </a>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </Reveal>
-
-              {/* Form */}
-              <Reveal delay={0.1}>
-                <ContactForm />
-              </Reveal>
-            </div>
+        {/* CTA band */}
+        <section className="bg-leaf-gradient py-14 sm:py-16" aria-label="Πρόσκληση δράσης">
+          <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 text-center sm:px-6 lg:px-8">
+            <Reveal>
+              <h2 className="font-heading text-3xl font-extrabold tracking-tight text-white text-balance sm:text-4xl">
+                Έτοιμοι να ξεκινήσετε το δικό σας φωτοβολταϊκό;
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-white/80">
+                Ζητήστε τη δωρεάν μελέτη σας σήμερα — οι μηχανικοί μας επισκέπτονται
+                τον χώρο σας, αναλύουν τις ανάγκες σας και σας παραδίδουν αναλυτική
+                προσφορά χωρίς καμία δέσμευση.
+              </p>
+              <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+                <Link href="/epikoinonia">
+                  <Button
+                    size="lg"
+                    className="h-13 rounded-xl bg-white px-7 font-heading text-base font-bold text-[#256d34] shadow-xl hover:bg-[#f2f0e9]"
+                  >
+                    Δωρεάν Μελέτη & Προσφορά
+                    <ArrowRight className="ml-2 h-5 w-5" aria-hidden />
+                  </Button>
+                </Link>
+                <a href="tel:+302310644512">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="h-13 gap-2 rounded-xl border-white/40 bg-transparent px-7 font-heading text-base font-bold text-white hover:bg-white/10 hover:text-white"
+                  >
+                    <Phone className="h-5 w-5" aria-hidden />
+                    2310 644 512
+                  </Button>
+                </a>
+              </div>
+            </Reveal>
           </div>
         </section>
       </main>

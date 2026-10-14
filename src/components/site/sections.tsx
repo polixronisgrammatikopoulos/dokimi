@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import {
   PlugZap,
   Network,
@@ -76,6 +77,7 @@ export function SectionHeader({
 const SOLUTIONS = [
   {
     icon: PlugZap,
+    slug: "autonomo",
     title: "Αυτόνομα Συστήματα (Off-Grid)",
     description:
       "Πλήρης ενεργειακή ανεξαρτησία, χωρίς λογαριασμό ρεύματος. Η ενέργεια της ημέρας αποθηκεύεται σε μπαταρίες LFP και καλύπτει τις ανάγκες σας όλο το 24ωρο.",
@@ -84,6 +86,7 @@ const SOLUTIONS = [
   },
   {
     icon: Network,
+    slug: "net-billing",
     title: "Διασυνδεδεμένα (Net Billing)",
     description:
       "Καταναλώνετε άμεσα την ενέργεια που παράγετε και πουλάτε την πλεονάζουσα στο δίκτυο σε τιμή αγοράς. Η πιο αποδοτική λύση για σταθερή καθημερινή κατανάλωση.",
@@ -92,6 +95,7 @@ const SOLUTIONS = [
   },
   {
     icon: BatteryCharging,
+    slug: "ybridiko",
     title: "Υβριδικά με Αποθήκευση",
     description:
       "Ο συνδυασμός που μεγιστοποιεί την αυτονομία: φωτοβολταϊκά + μπαταρίες + δίκτυο, με αυτόματο backup σε κάθε διακοπή ρεύματος.",
@@ -100,6 +104,7 @@ const SOLUTIONS = [
   },
   {
     icon: Warehouse,
+    slug: "epixeirimatika",
     title: "Επαγγελματικές & Αγροτικές Εγκαταστάσεις",
     description:
       "Συστήματα μεγάλου μεγέθους για επιχειρήσεις, θερμοκήπια, αντλιοστάσια και αγροκτήματα — με ισχύ έως και εκατοντάδες kW.",
@@ -176,6 +181,17 @@ export function Solutions() {
                     </li>
                   ))}
                 </ul>
+                <Link
+                  href={`/fotovoltaika#${solution.slug}`}
+                  className={cn(
+                    "mt-5 inline-flex items-center gap-1 text-sm font-bold transition-colors",
+                    solution.featured
+                      ? "text-[#7fc795] hover:text-white"
+                      : "text-[#2c7a3e] hover:text-[#256d34]"
+                  )}
+                >
+                  Μάθετε περισσότερα →
+                </Link>
               </article>
             </Reveal>
           ))}
@@ -275,16 +291,24 @@ export function Products() {
           ))}
         </div>
 
-        <Reveal delay={0.2} className="mt-10 flex justify-center">
-          <a href="#epikoinonia">
+        <Reveal delay={0.2} className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <Link href="/epikoinonia">
+            <Button
+              size="lg"
+              className="h-13 rounded-xl bg-[#2c7a3e] px-7 font-heading text-base font-bold shadow-xl shadow-[#2c7a3e]/25 hover:bg-[#256d34]"
+            >
+              Ζητήστε Τιμή για Εξοπλισμό
+            </Button>
+          </Link>
+          <Link href="/proionta">
             <Button
               size="lg"
               variant="outline"
               className="h-13 rounded-xl border-[#0d4c74]/30 px-7 font-heading text-base font-bold text-[#0d4c74] hover:bg-[#0d4c74] hover:text-white"
             >
-              Ζητήστε Τιμή για Εξοπλισμό
+              Ολοκλημένος Κατάλογος Προϊόντων
             </Button>
-          </a>
+          </Link>
         </Reveal>
       </div>
     </section>
@@ -443,7 +467,7 @@ export function WhyUs() {
             ))}
           </div>
           <Reveal delay={0.25} className="mt-8">
-            <a href="#epikoinonia">
+            <a href="/epikoinonia">
               <Button
                 size="lg"
                 className="h-13 rounded-xl bg-[#2c7a3e] px-7 font-heading text-base font-bold shadow-xl shadow-black/20 hover:bg-[#256d34]"
