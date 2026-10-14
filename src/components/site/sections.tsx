@@ -1,0 +1,459 @@
+import Image from "next/image";
+import {
+  PlugZap,
+  Network,
+  BatteryCharging,
+  Warehouse,
+  FileSearch,
+  FileText,
+  HardHat,
+  LifeBuoy,
+  ShieldCheck,
+  MapPinned,
+  HandCoins,
+  SunMedium,
+  Award,
+  Check,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Reveal } from "@/components/site/reveal";
+import { cn } from "@/lib/utils";
+
+/* ---------------- Section header ---------------- */
+
+export function SectionHeader({
+  eyebrow,
+  title,
+  subtitle,
+  align = "center",
+  dark = false,
+}: {
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+  align?: "center" | "left";
+  dark?: boolean;
+}) {
+  return (
+    <Reveal
+      className={cn(
+        "mb-10 flex flex-col gap-3 sm:mb-14",
+        align === "center" ? "items-center text-center" : "items-start text-left"
+      )}
+    >
+      <span
+        className={cn(
+          "rounded-full px-4 py-1.5 text-sm font-bold uppercase tracking-wider",
+          dark ? "bg-white/10 text-[#7fc795]" : "bg-accent text-accent-foreground"
+        )}
+      >
+        {eyebrow}
+      </span>
+      <h2
+        className={cn(
+          "font-heading text-3xl font-extrabold tracking-tight text-balance sm:text-4xl",
+          dark ? "text-white" : "text-[#0d4c74]"
+        )}
+      >
+        {title}
+      </h2>
+      {subtitle && (
+        <p
+          className={cn(
+            "max-w-2xl text-lg leading-relaxed",
+            dark ? "text-white/70" : "text-muted-foreground"
+          )}
+        >
+          {subtitle}
+        </p>
+      )}
+    </Reveal>
+  );
+}
+
+/* ---------------- Λύσεις ---------------- */
+
+const SOLUTIONS = [
+  {
+    icon: PlugZap,
+    title: "Αυτόνομα Συστήματα (Off-Grid)",
+    description:
+      "Πλήρης ενεργειακή ανεξαρτησία, χωρίς λογαριασμό ρεύματος. Η ενέργεια της ημέρας αποθηκεύεται σε μπαταρίες LFP και καλύπτει τις ανάγκες σας όλο το 24ωρο.",
+    points: ["Ιδανικό για εξοχικά & απομακρυσμένες περιοχές", "Μηδενικός λογαριασμός ρεύματος", "Ανεξάρτητο από το δίκτυο"],
+    featured: false,
+  },
+  {
+    icon: Network,
+    title: "Διασυνδεδεμένα (Net Billing)",
+    description:
+      "Καταναλώνετε άμεσα την ενέργεια που παράγετε και πουλάτε την πλεονάζουσα στο δίκτυο σε τιμή αγοράς. Η πιο αποδοτική λύση για σταθερή καθημερινή κατανάλωση.",
+    points: ["Άμεση αποζημίωση πλεονάζουσας ενέργειας", "Χαμηλότερο αρχικό κόστος", "Ιδανικό για νοικοκυριά & επιχειρήσεις"],
+    featured: true,
+  },
+  {
+    icon: BatteryCharging,
+    title: "Υβριδικά με Αποθήκευση",
+    description:
+      "Ο συνδυασμός που μεγιστοποιεί την αυτονομία: φωτοβολταϊκά + μπαταρίες + δίκτυο, με αυτόματο backup σε κάθε διακοπή ρεύματος.",
+    points: ["Αυτοκατανάλωση έως 90%", "Backup σε κάθε διακοπή", "Έξυπνη διαχείριση ενέργειας"],
+    featured: false,
+  },
+  {
+    icon: Warehouse,
+    title: "Επαγγελματικές & Αγροτικές Εγκαταστάσεις",
+    description:
+      "Συστήματα μεγάλου μεγέθους για επιχειρήσεις, θερμοκήπια, αντλιοστάσια και αγροκτήματα — με ισχύ έως και εκατοντάδες kW.",
+    points: ["Σημαντική μείωση λειτουργικού κόστους", "Προστασία από αυξήσεις τιμών", "Απόσβεση σε σύντομο χρονικό ορίζοντα"],
+    featured: false,
+  },
+];
+
+export function Solutions() {
+  return (
+    <section id="lyseis" className="bg-white py-16 sm:py-24" aria-label="Λύσεις">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          eyebrow="Λύσεις"
+          title="Ποια λύση ταιριάζει σε εσάς;"
+          subtitle="Από πλήρη ενεργειακή αυτονομία έως έξυπνη διασύνδεση με το δίκτυο — σχεδιάζουμε το σύστημα που καλύπτει ακριβώς τις ανάγκες σας."
+        />
+
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {SOLUTIONS.map((solution, i) => (
+            <Reveal key={solution.title} delay={i * 0.08} className="h-full">
+              <article
+                className={cn(
+                  "group flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1.5",
+                  solution.featured
+                    ? "border-[#2c7a3e] bg-[#2c7a3e] shadow-xl shadow-[#2c7a3e]/25"
+                    : "border-border bg-card shadow-sm hover:shadow-xl hover:shadow-[#0d4c74]/10"
+                )}
+              >
+                <span
+                  className={cn(
+                    "flex h-12 w-12 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110",
+                    solution.featured ? "bg-white/15" : "bg-accent"
+                  )}
+                >
+                  <solution.icon
+                    className={cn("h-6 w-6", solution.featured ? "text-[#7fc795]" : "text-[#2c7a3e]")}
+                    aria-hidden
+                  />
+                </span>
+                <h3
+                  className={cn(
+                    "mt-4 font-heading text-lg font-extrabold leading-snug",
+                    solution.featured ? "text-white" : "text-[#0d4c74]"
+                  )}
+                >
+                  {solution.title}
+                </h3>
+                <p
+                  className={cn(
+                    "mt-2.5 flex-1 text-[15px] leading-relaxed",
+                    solution.featured ? "text-white/80" : "text-muted-foreground"
+                  )}
+                >
+                  {solution.description}
+                </p>
+                <ul className="mt-4 space-y-2">
+                  {solution.points.map((point) => (
+                    <li
+                      key={point}
+                      className={cn(
+                        "flex items-start gap-2 text-sm font-medium",
+                        solution.featured ? "text-white/90" : "text-foreground/80"
+                      )}
+                    >
+                      <Check
+                        className={cn(
+                          "mt-0.5 h-4 w-4 shrink-0",
+                          solution.featured ? "text-[#7fc795]" : "text-[#2c7a3e]"
+                        )}
+                        aria-hidden
+                      />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- Προϊόντα ---------------- */
+
+const PRODUCTS = [
+  {
+    image: "/products/deye-inverter.png",
+    alt: "Υβριδικός inverter Deye",
+    title: "DEYE Inverters 48V",
+    subtitle: "6 kW – 20 kW",
+    description:
+      "Υβριδικοί αντιστροφείς τελευταίας γενιάς με παράλληλη λειτουργία, παρακολούθηση από κινητό και υψηλή απόδοση μετατροπής.",
+    tags: ["Wi-Fi Monitor", "Παράλληλη Λειτουργία"],
+  },
+  {
+    image: "/products/vtac-battery.png",
+    alt: "Μπαταρία λιθίου V-TAC 10kWh 48V",
+    title: "Μπαταρίες V-TAC & DEYE",
+    subtitle: "10 kWh · 48V LFP",
+    description:
+      "Μπαταρίες λιθίου LiFePO4 με 6.000+ κύκλους ζωής, ενσωματωμένο BMS ασφαλείας και συμπαγές κρεμαστό σχέδιο.",
+    tags: ["6.000+ Κύκλοι", "BMS Ασφαλείας"],
+  },
+  {
+    image: "/products/deye-rack.png",
+    alt: "Σύστημα μπαταριών Deye High Voltage Rack",
+    title: "DEYE High Voltage Racks",
+    subtitle: "200V – 500V DC",
+    description:
+      "Επαγγελματικά συστήματα αποθήκευσης τύπου rack για μεγάλες ενεργειακές απαιτήσεις, πλήρως επεκτάσιμα ανά άβαφα module.",
+    tags: ["Επεκτάσιμα", "Εμπορικές Εφαρμογές"],
+  },
+  {
+    image: "/products/solar-panels.png",
+    alt: "Μονοκρυσταλλικά φωτοβολταϊκά πάνελ 500W-700W",
+    title: "Φωτοβολταϊκά Πάνελ",
+    subtitle: "500W / 700W Μονοκρυσταλλικά",
+    description:
+      "Πάνελ τελευταίας γενιάς με υψηλή απόδοση ακόμα και σε συννεφιά, αντοχή σε χαλάζι και εγγύηση απόδοσης 25–30 ετών.",
+    tags: ["Υψηλή Απόδοση", "Εγγύηση 25–30 Ετών"],
+  },
+];
+
+export function Products() {
+  return (
+    <section id="proionta" className="bg-[#f5f3ec] py-16 sm:py-24" aria-label="Προϊόντα">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          eyebrow="Τα Προϊόντα μας"
+          title="Εξοπλισμός Κορυφαίων Μαρκών"
+          subtitle="Συνεργαζόμαστε με τους πιο αξιόπιστους κατασκευαστές παγκοσμίως, ώστε κάθε εγκατάσταση να λειτουργεί αψεγίδιαστα για δεκαετίες."
+        />
+
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {PRODUCTS.map((product, i) => (
+            <Reveal key={product.title} delay={i * 0.08} className="h-full">
+              <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[#0d4c74]/10">
+                <div className="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-white to-[#eef1ea] p-5">
+                  <Image
+                    src={product.image}
+                    alt={product.alt}
+                    width={400}
+                    height={400}
+                    className="max-h-full w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  <p className="text-xs font-bold uppercase tracking-wider text-[#2c7a3e]">
+                    {product.subtitle}
+                  </p>
+                  <h3 className="mt-1.5 font-heading text-lg font-extrabold text-[#0d4c74]">
+                    {product.title}
+                  </h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                    {product.description}
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {product.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full bg-[#eaf2f8] px-2.5 py-1 text-[11px] font-bold text-[#0d4c74]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={0.2} className="mt-10 flex justify-center">
+          <a href="#epikoinonia">
+            <Button
+              size="lg"
+              variant="outline"
+              className="h-13 rounded-xl border-[#0d4c74]/30 px-7 font-heading text-base font-bold text-[#0d4c74] hover:bg-[#0d4c74] hover:text-white"
+            >
+              Ζητήστε Τιμή για Εξοπλισμό
+            </Button>
+          </a>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- Διαδικασία ---------------- */
+
+const STEPS = [
+  {
+    icon: FileSearch,
+    title: "Δωρεάν Μελέτη",
+    description:
+      "Αναλύουμε την κατανάλωσή σας, τον χώρο και τον προσανατολισμό της στέγης σας για να προτείνουμε το βέλτιστο μέγεθος συστήματος.",
+  },
+  {
+    icon: FileText,
+    title: "Σαφής Προσφορά",
+    description:
+      "Λαμβάνετε αναλυτική προσφορά χωρίς κρυφά κόστη: εξοπλισμός, υλικά, εργασία, άδειες και προβλεπόμενες αποδόσεις.",
+  },
+  {
+    icon: HardHat,
+    title: "Επαγγελματική Εγκατάσταση",
+    description:
+      "Οι πιστοποιημένοι μηχανικοί και τεχνικοί μας αναλαμβάνουν την πλήρη εγκατάσταση, τις άδειες και τη σύνδεση με το δίκτυο.",
+  },
+  {
+    icon: LifeBuoy,
+    title: "Διά Βίου Υποστήριξη",
+    description:
+      "Παρακολούθηση απόδοσης, προληπτική συντήρηση και άμεση τεχνική υποστήριξη — είμαστε δίπλα σας μετά την εγκατάσταση.",
+  },
+];
+
+export function Process() {
+  return (
+    <section id="diadikasia" className="bg-white py-16 sm:py-24" aria-label="Η διαδικασία μας">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          eyebrow="Πώς Λειτουργούμε"
+          title="Από τη Μελέτη στην Εγκατάσταση, σε 4 Βήματα"
+          subtitle="Απλή, διαφανής και γρήγορη διαδικασία — εσείς κερδίζετε χρόνο και χρήμα."
+        />
+
+        <div className="relative grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {/* connector line (desktop) */}
+          <div
+            aria-hidden
+            className="absolute left-0 right-0 top-8 hidden h-0.5 bg-gradient-to-r from-[#2c7a3e]/20 via-[#2c7a3e]/45 to-[#2c7a3e]/20 lg:block"
+          />
+          {STEPS.map((step, i) => (
+            <Reveal key={step.title} delay={i * 0.1} className="relative">
+              <div className="flex h-full flex-col items-start">
+                <div className="relative z-10 flex items-center gap-4">
+                  <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[#2c7a3e] text-white shadow-lg shadow-[#2c7a3e]/30">
+                    <step.icon className="h-7 w-7" aria-hidden />
+                  </span>
+                  <span className="font-heading text-5xl font-extrabold text-[#0d4c74]/10">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <h3 className="mt-4 font-heading text-lg font-extrabold text-[#0d4c74]">
+                  {step.title}
+                </h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">
+                  {step.description}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- Γιατί εμάς ---------------- */
+
+const REASONS = [
+  {
+    icon: Award,
+    title: "Εξειδίκευση στην Αυτονομία",
+    text: "Επικεντρωνόμαστε σε αυτόνομα και υβριδικά συστήματα — τη μεγαλύτερη εξειδίκευση που απαιτεί σωστή διαστασιολόγηση μπαταριών.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Πιστοποιημένος Εξοπλισμός",
+    text: "Μόνο τεκμηριωμένες μάρκες (Deye, V-TAC) με ευρωπαϊκές πιστοποιήσεις και εγγυήσεις κατασκευαστή.",
+  },
+  {
+    icon: MapPinned,
+    title: "Τοπική Ομάδα στη Θεσσαλονίκη",
+    text: "Είμαστε δίπλα σας για επίσκεψη, εγκατάσταση και άμεση υποστήριξη σε όλη τη Βόρεια Ελλάδα.",
+  },
+  {
+    icon: HandCoins,
+    title: "Διαφάνεια στις Τιμές",
+    text: "Αναλυτικές προσφορές χωρίς κρυφά κόστη. Ξέρετε ακριβώς τι πληρώνετε — και τι θα εξοικονομήσετε.",
+  },
+];
+
+export function WhyUs() {
+  return (
+    <section id="giati-emas" className="bg-brand-gradient py-16 sm:py-24" aria-label="Γιατί ProΣτέγη">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
+        {/* Image */}
+        <Reveal className="relative order-2 lg:order-1">
+          <div className="relative overflow-hidden rounded-[1.75rem] shadow-2xl">
+            <Image
+              src="/technician.jpg"
+              alt="Τεχνικός της ProΣτέγη εγκαθιστά φωτοβολταϊκά πάνελ σε στέγη"
+              width={1152}
+              height={864}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="absolute -bottom-6 -right-2 rounded-2xl bg-[#f2f0e9] p-5 shadow-xl sm:right-8">
+            <div className="flex items-center gap-3">
+              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#2c7a3e]">
+                <SunMedium className="h-7 w-7 text-white" aria-hidden />
+              </span>
+              <div>
+                <p className="font-heading text-2xl font-extrabold leading-none text-[#0d4c74]">
+                  25–30 έτη
+                </p>
+                <p className="mt-1 text-xs font-semibold text-muted-foreground">
+                  διάρκεια ζωής πάνελ με εγγύηση απόδοσης
+                </p>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Copy */}
+        <div className="order-1 lg:order-2">
+          <SectionHeader
+            eyebrow="Γιατί ProΣτέγη"
+            title="Ο Σωστός Συνεργάτης για την Ενέργειά σας"
+            align="left"
+            dark
+          />
+          <div className="grid gap-5 sm:grid-cols-2 lg:gap-6">
+            {REASONS.map((reason, i) => (
+              <Reveal key={reason.title} delay={i * 0.08}>
+                <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm transition-colors hover:bg-white/10">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#2c7a3e]">
+                    <reason.icon className="h-6 w-6 text-white" aria-hidden />
+                  </span>
+                  <h3 className="mt-3.5 font-heading text-base font-extrabold text-white">
+                    {reason.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-white/70">{reason.text}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal delay={0.25} className="mt-8">
+            <a href="#epikoinonia">
+              <Button
+                size="lg"
+                className="h-13 rounded-xl bg-[#2c7a3e] px-7 font-heading text-base font-bold shadow-xl shadow-black/20 hover:bg-[#256d34]"
+              >
+                Μιλήστε με τους Ειδικούς μας
+              </Button>
+            </a>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}

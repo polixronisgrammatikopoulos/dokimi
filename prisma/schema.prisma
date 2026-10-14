@@ -1,0 +1,21 @@
+// ProStegi website database schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Leads submitted through the contact form on the website
+model ContactLead {
+  id         String   @id @default(cuid())
+  name       String
+  phone      String
+  email      String?
+  systemType String?
+  message    String?
+  createdAt  DateTime @default(now())
+}
