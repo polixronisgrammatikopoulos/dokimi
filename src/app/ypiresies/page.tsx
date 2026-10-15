@@ -184,6 +184,15 @@ export default function YpiresiesPage() {
                 δωρεάν, χωρίς δέσμευση.
               </p>
               <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <Link href="/paketa">
+                  <Button
+                    size="lg"
+                    className="h-13 rounded-xl bg-[#2c7a3e] px-8 font-heading text-base font-bold text-white shadow-xl shadow-[#2c7a3e]/25 hover:bg-[#256d34]"
+                  >
+                    Πακέτα 5–20 kW & Τιμές
+                    <ArrowRight className="ml-2 h-5 w-5" aria-hidden />
+                  </Button>
+                </Link>
                 <Link href="/epikoinonia">
                   <Button
                     size="lg"

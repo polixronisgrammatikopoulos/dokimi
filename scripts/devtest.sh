@@ -17,6 +17,7 @@ fi
 
 ROUTES=(
   "/"
+  "/paketa"
   "/proionta"
   "/proionta/deye-sun-6k-sg04lp1"
   "/proionta/deye-sun-8k-sg04lp1"

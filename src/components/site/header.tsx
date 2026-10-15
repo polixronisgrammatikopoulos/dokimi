@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Phone, ShoppingCart } from "lucide-react";
+import { Boxes, Menu, Phone, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -20,6 +20,7 @@ import { useHasMounted } from "@/hooks/use-has-mounted";
 export const NAV_ITEMS = [
   { href: "/", label: "Αρχική" },
   { href: "/fotovoltaika", label: "Φωτοβολταϊκά" },
+  { href: "/paketa", label: "Πακέτα", highlight: true },
   { href: "/proionta", label: "Προϊόντα" },
   { href: "/ypiresies", label: "Υπηρεσίες" },
   { href: "/ypologistis", label: "Υπολογιστής" },
@@ -85,21 +86,42 @@ export function SiteHeader() {
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Κύρια πλοήγηση">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              aria-current={isActive(item.href) ? "page" : undefined}
-              className={cn(
-                "rounded-lg px-3 py-2 text-sm font-semibold transition-colors",
-                isActive(item.href)
-                  ? "bg-accent text-accent-foreground"
-                  : "text-[#17324a]/85 hover:bg-accent/60 hover:text-[#0d4c74]"
-              )}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            const active = isActive(item.href);
+            if (item.highlight) {
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "ml-1 flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-bold shadow-md transition-all",
+                    active
+                      ? "bg-[#256d34] text-white shadow-[#2c7a3e]/30"
+                      : "bg-[#2c7a3e] text-white shadow-[#2c7a3e]/25 hover:bg-[#256d34]"
+                  )}
+                >
+                  <Boxes className="h-4 w-4" aria-hidden />
+                  {item.label}
+                </Link>
+              );
+            }
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className={cn(
+                  "whitespace-nowrap rounded-lg px-2.5 py-2 text-[13px] font-semibold transition-colors",
+                  active
+                    ? "bg-accent text-accent-foreground"
+                    : "text-[#17324a]/85 hover:bg-accent/60 hover:text-[#0d4c74]"
+                )}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight, Boxes, Phone } from "lucide-react";
 import { SiteHeader } from "@/components/site/header";
 import { Hero3D } from "@/components/site/hero-3d";
 import { StatsBar } from "@/components/site/hero";
@@ -20,6 +20,7 @@ import { Reveal } from "@/components/site/reveal";
 import { JsonLd } from "@/components/site/json-ld";
 import { Button } from "@/components/ui/button";
 import { buildPageMetadata } from "@/lib/seo";
+import { PAKETA } from "@/lib/paketa-data";
 
 export const metadata = buildPageMetadata({
   title:
@@ -55,6 +56,76 @@ export default function Home() {
         <StatsBar />
         <TrustBar />
         <Solutions />
+
+        {/* Ολοκληρωμένα Πακέτα 5–20 kW — banner */}
+        <section
+          className="bg-brand-gradient relative overflow-hidden py-14 sm:py-16"
+          aria-label="Ολοκληρωμένα πακέτα φωτοβολταϊκών 5–20 kW"
+        >
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl"
+          />
+          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <Reveal className="flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-2xl">
+                <p className="text-sm font-bold uppercase tracking-wider text-[#9fe0b0]">
+                  Νέο — Ολοκληρωμένα Πακέτα
+                </p>
+                <h2 className="mt-2 font-heading text-2xl font-extrabold leading-tight text-white text-balance sm:text-3xl">
+                  Φωτοβολταϊκό Σύστημα 10 kW στα 8.500€ — Με Όλα Μέσα
+                </h2>
+                <p className="mt-3 text-[15px] leading-relaxed text-white/80 sm:text-base">
+                  Πάνελ, inverter, μελέτη, άδειες και πιστοποιημένη εγκατάσταση σε μία
+                  τελική τιμή με ΦΠΑ. Σειρά έτοιμων πακέτων 5–20 kW για σπίτι και
+                  επιχείρηση — επιλέγετε, σας καλεί εξειδικευμένος εκπρόσωπος.
+                </p>
+              </div>
+              <div className="flex shrink-0 flex-col items-stretch gap-3 sm:flex-row lg:flex-col">
+                <Link href="/paketa">
+                  <Button
+                    size="lg"
+                    className="h-13 w-full gap-2 rounded-xl bg-white px-7 font-heading text-base font-bold text-[#256d34] shadow-xl hover:bg-[#f2f0e9]"
+                  >
+                    <Boxes className="h-5 w-5" aria-hidden />
+                    Δείτε τα 5 Πακέτα
+                  </Button>
+                </Link>
+                <a href="tel:+302310644512">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="h-13 w-full gap-2 rounded-xl border-white/40 bg-transparent px-7 font-heading text-base font-bold text-white hover:bg-white/10 hover:text-white"
+                  >
+                    <Phone className="h-5 w-5" aria-hidden />
+                    2310 644 512
+                  </Button>
+                </a>
+              </div>
+            </Reveal>
+
+            {/* Chips ισχύος */}
+            <Reveal delay={0.12} className="mt-8">
+              <div className="flex flex-wrap items-center justify-center gap-2.5">
+                {PAKETA.map((p) => (
+                  <Link
+                    key={p.id}
+                    href={`/paketa#${p.id}`}
+                    className="group inline-flex items-baseline gap-1.5 rounded-full border border-white/25 bg-white/10 px-5 py-2.5 backdrop-blur transition-all hover:border-white/60 hover:bg-white/20"
+                  >
+                    <span className="font-heading text-lg font-extrabold text-white">
+                      {p.kw} kW
+                    </span>
+                    <span className="text-[12px] font-semibold text-white/75 group-hover:text-white/90">
+                      {p.price !== null ? `από ${p.price.toLocaleString("el-GR")}€` : "ρωτήστε τιμή"}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
         <Products />
         <Process />
         <Testimonials />

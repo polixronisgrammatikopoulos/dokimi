@@ -5,6 +5,7 @@ import { Clock, MapPin, Phone, Mail, ShieldCheck } from "lucide-react";
 const QUICK_LINKS = [
   { href: "/", label: "Αρχική" },
   { href: "/fotovoltaika", label: "Φωτοβολταϊκά Συστήματα" },
+  { href: "/paketa", label: "Ολοκληρωμένα Πακέτα 5–20 kW" },
   { href: "/proionta", label: "E-shop Προϊόντων" },
   { href: "/ypiresies", label: "Υπηρεσίες & Πακέτα" },
   { href: "/ypologistis", label: "Υπολογιστής Εξοικονόμησης" },

@@ -55,4 +55,8 @@ export const FAQ_ITEMS = [
   },
 ] as const;
 
-export type FaqItem = (typeof FAQ_ITEMS)[number];
+/** Γενικός τύπος ερώτησης-απάντησης — δέχεται και τα σταθερά FAQ_ITEMS και προσαρμοσμένα σύνολα */
+export type FaqItem = {
+  question: string;
+  answer: string;
+};
