@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
+import { PRODUCTS } from "@/lib/products-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
@@ -20,8 +21,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${SITE_URL}/proionta`,
       lastModified,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/ypiresies`,
+      lastModified,
       changeFrequency: "monthly",
-      priority: 0.8,
+      priority: 0.9,
     },
     {
       url: `${SITE_URL}/epikoinonia`,
@@ -47,5 +54,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.6,
     },
+    // Σελίδες προϊόντων (e-shop)
+    ...PRODUCTS.map((p) => ({
+      url: `${SITE_URL}/proionta/${p.slug}`,
+      lastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    })),
   ];
 }

@@ -34,7 +34,7 @@ export default function robots(): MetadataRoute.Robots {
           "cohere-ai",
         ],
         allow: "/",
-        disallow: ["/api/*"],
+        disallow: ["/api/*", "/kalathi", "/oloklirosi-paraggelias"],
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

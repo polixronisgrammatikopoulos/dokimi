@@ -3,83 +3,61 @@ import { Check, ShieldCheck, Wifi, Layers, BatteryCharging, SunMedium, ArrowRigh
 import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
 import { PageHero } from "@/components/site/page-hero";
-import { Products, SectionHeader } from "@/components/site/sections";
+import { CatalogGrid } from "@/components/site/catalog-grid";
+import { SectionHeader } from "@/components/site/sections";
 import { Reveal } from "@/components/site/reveal";
 import { JsonLd } from "@/components/site/json-ld";
 import { Button } from "@/components/ui/button";
 import { buildPageMetadata, SITE_NAME, SITE_URL } from "@/lib/seo";
+import { PRODUCTS } from "@/lib/products-data";
 
 export const metadata = buildPageMetadata({
-  title: "Προϊόντα & Εξοπλισμός — Deye Inverters, Μπαταρίες V-TAC & Φωτοβολταϊκά Πάνελ",
+  title: "E-shop Φωτοβολταϊκών — Inverters Deye, Μπαταρίες & Πάνελ σε Τιμές Χονδρικής",
   description:
-    "Πιστοποιημένος φωτοβολταϊκός εξοπλισμός τελευταίας γενιάς: υβριδικοί inverters Deye, μπαταρίες λιθίου V-TAC & DEYE, high voltage racks και μονοκρυσταλλικά πάνελ 500W-700W. Θεσσαλονίκη.",
+    "Αγοράστε φωτοβολταϊκό εξοπλισμό online: υβριδικοί inverters Deye, μπαταρίες λιθίου V-TAC & DEYE, πάνελ 500W–700W και ολοκληρωμένα πακέτα με εγκατάσταση. Χωρίς online πληρωμή — παραγγελία τηλεφωνικά, εξυπηρέτηση από ειδικό.",
   path: "/proionta",
   keywords: [
-    "Deye inverter Ελλάδα",
-    "υβριδικός inverter 48V",
-    "μπαταρία λιθίου LiFePO4",
-    "V-TAC μπαταρία 10kWh",
-    "φωτοβολταϊκά πάνελ 500W",
-    "μονοκρυσταλλικά πάνελ",
-    "high voltage battery rack",
-    "φωτοβολταϊκός εξοπλισμός Θεσσαλονίκη",
+    "αγορά φωτοβολταϊκών τιμές",
+    "eshop φωτοβολταϊκά Ελλάδα",
+    "Deye inverter τιμή",
+    "μπαταρία λιθίου 10kWh τιμή",
+    "φωτοβολταϊκά πάνελ τιμές",
+    "υβριδικός inverter προσφορά",
+    "φωτοβολταϊκά πακέτα με εγκατάσταση",
+    "καλάθι αγορών φωτοβολταϊκά",
   ],
 });
 
-const PRODUCT_LD = {
+/** ItemList + Product JSON-LD με offers/τιμές για πλούσια αποτελέσματα Google */
+const CATALOG_LD = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: "Φωτοβολταϊκός Εξοπλισμός ProΣτέγη",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      item: {
-        "@type": "Product",
-        name: "Υβριδικοί Inverters DEYE 48V (6–20 kW)",
-        brand: { "@type": "Brand", name: "Deye" },
-        description:
-          "Υβριδικοί αντιστροφείς τελευταίας γενιάς με παράλληλη λειτουργία, Wi-Fi παρακολούθηση και υψηλή απόδοση μετατροπής.",
-        image: `${SITE_URL}/products/deye-inverter.png`,
+  numberOfItems: PRODUCTS.length,
+  itemListElement: PRODUCTS.map((p, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "Product",
+      name: p.name,
+      brand: { "@type": "Brand", name: p.brand },
+      sku: p.sku,
+      description: p.shortDesc,
+      image: `${SITE_URL}${p.image}`,
+      url: `${SITE_URL}/proionta/${p.slug}`,
+      offers: {
+        "@type": "Offer",
+        priceCurrency: "EUR",
+        price: p.price,
+        itemCondition: "https://schema.org/NewCondition",
+        availability:
+          p.stock === "in"
+            ? "https://schema.org/InStock"
+            : "https://schema.org/PreOrder",
+        seller: { "@type": "Organization", name: SITE_NAME },
       },
     },
-    {
-      "@type": "ListItem",
-      position: 2,
-      item: {
-        "@type": "Product",
-        name: "Μπαταρίες Λιθίου V-TAC & DEYE 10 kWh 48V LFP",
-        brand: { "@type": "Brand", name: "V-TAC" },
-        description:
-          "Μπαταρίες λιθίου LiFePO4 με 6.000+ κύκλους ζωής, ενσωματωμένο BMS ασφαλείας και συμπαγές κρεμαστό σχέδιο.",
-        image: `${SITE_URL}/products/vtac-battery.png`,
-      },
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      item: {
-        "@type": "Product",
-        name: "DEYE High Voltage Racks 200V–500V DC",
-        brand: { "@type": "Brand", name: "Deye" },
-        description:
-          "Επαγγελματικά συστήματα αποθήκευσης τύπου rack για μεγάλες ενεργειακές απαιτήσεις, πλήρως επεκτάσιμα.",
-        image: `${SITE_URL}/products/deye-rack.png`,
-      },
-    },
-    {
-      "@type": "ListItem",
-      position: 4,
-      item: {
-        "@type": "Product",
-        name: "Μονοκρυσταλλικά Φωτοβολταϊκά Πάνελ 500W–700W",
-        brand: { "@type": "Brand", name: "Tier-1" },
-        description:
-          "Πάνελ τελευταίας γενιάς με υψηλή απόδοση ακόμα και σε συννεφιά, αντοχή σε χαλάζι και εγγύηση απόδοσης 25–30 ετών.",
-        image: `${SITE_URL}/products/solar-panels.png`,
-      },
-    },
-  ],
+  })),
 };
 
 const DEEP_DIVES = [
@@ -128,20 +106,57 @@ const DEEP_DIVES = [
 export default function ProiontaPage() {
   return (
     <div className="flex min-h-screen flex-col">
-      <JsonLd data={PRODUCT_LD} />
+      <JsonLd data={CATALOG_LD} />
       <SiteHeader />
       <main className="flex-1">
         <PageHero
-          eyebrow="Προϊόντα & Εξοπλισμός"
-          title="Εξοπλισμός Κορυφαίων Μαρκών, Πιστοποιημένος για Δεκαετίες"
-          lead="Συνεργαζόμαστε μόνο με κατασκευαστές με αποδεδειγμένη αξιοπιστία — Deye, V-TAC και Tier-1 κατασκευαστές πάνελ — ώστε η επένδυσή σας να αποδίδει αψεγίδιαστα για 25+ χρόνια."
+          eyebrow="E-shop Φωτοβολταϊκών"
+          title="Εξοπλισμός Κορυφαίων Μαρκών, σε Διαφανείς Τιμές"
+          lead="Περιηγηθείτε στον πλήρη κατάλογο: τιμές με ΦΠΑ, τεχνικά χαρακτηριστικά και εκπτώσεις με σβησμένη παλιά τιμή. Η παραγγελία ολοκληρώνεται τηλεφωνικά — σας καλούμε εμείς μέσα σε λίγες ώρες για την καλύτερη δυνατή εξυπηρέτηση."
           crumbs={[{ name: "Προϊόντα", path: "/proionta" }]}
         />
 
-        {/* Πλέγμα προϊόντων */}
-        <div className="bg-white pt-4">
-          <Products />
+        {/* E-shop πλέγμα */}
+        <div className="bg-[#f5f3ec] py-4" id="katalogos">
+          <CatalogGrid />
         </div>
+
+        {/* Πώς λειτουργεί η παραγγελία */}
+        <section className="bg-white py-12" aria-label="Πώς γίνεται η παραγγελία">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <Reveal>
+              <div className="grid gap-6 rounded-2xl border border-[#2c7a3e]/20 bg-[#e9f3eb]/50 p-7 md:grid-cols-3 sm:p-9">
+                <div>
+                  <span className="font-heading text-3xl font-extrabold text-[#2c7a3e]">1</span>
+                  <h3 className="mt-2 font-heading text-lg font-extrabold text-[#0d4c74]">
+                    Επιλέγετε προϊόντα
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                    Προσθέτετε ό,τι σας ενδιαφέρει στο καλάθι — χωρίς λογαριασμό, χωρίς κάρτα, χωρίς online πληρωμή.
+                  </p>
+                </div>
+                <div>
+                  <span className="font-heading text-3xl font-extrabold text-[#2c7a3e]">2</span>
+                  <h3 className="mt-2 font-heading text-lg font-extrabold text-[#0d4c74]">
+                    Αφήνετε το τηλέφωνό σας
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                    Στην ολοκλήρωση συμπληρώνετε απλή φόρμα επικοινωνίας. Δεν χρειάζεται καμία πληρωμή σε αυτό το στάδιο.
+                  </p>
+                </div>
+                <div>
+                  <span className="font-heading text-3xl font-extrabold text-[#2c7a3e]">3</span>
+                  <h3 className="mt-2 font-heading text-lg font-extrabold text-[#0d4c74]">
+                    Σας καλούμε & τα τακτοποιούμε
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                    Ένας ειδικός μας σας καλεί, επιβεβαιώνει τη διαθεσιμότητα, απαντά σε απορίες και κανονίζει παράδοση ή εγκατάσταση.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
 
         {/* Αναλυτικές ενότητες */}
         <section className="bg-[#f5f3ec] py-14 sm:py-20" aria-label="Αναλυτικά για τον εξοπλισμό">

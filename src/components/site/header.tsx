@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Phone } from "lucide-react";
+import { Menu, Phone, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -14,11 +14,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { useCart, productsLabel } from "@/lib/cart-store";
+import { useHasMounted } from "@/hooks/use-has-mounted";
 
 export const NAV_ITEMS = [
   { href: "/", label: "Αρχική" },
   { href: "/fotovoltaika", label: "Φωτοβολταϊκά" },
   { href: "/proionta", label: "Προϊόντα" },
+  { href: "/ypiresies", label: "Υπηρεσίες" },
   { href: "/ypologistis", label: "Υπολογιστής" },
   { href: "/etaireia", label: "Η Εταιρεία" },
   { href: "/faq", label: "Ερωτήσεις" },
@@ -28,6 +31,10 @@ export const NAV_ITEMS = [
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const hasMounted = useHasMounted();
+  const cartCount = useCart((s) =>
+    s.items.reduce((acc, i) => acc + i.qty, 0)
+  );
   const pathname = usePathname();
 
   useEffect(() => {
@@ -96,6 +103,23 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {/* Καλάθι */}
+          <Link
+            href="/kalathi"
+            aria-label={`Καλάθι αγορών${hasMounted && cartCount > 0 ? ` (${productsLabel(cartCount)})` : ""}`}
+            className="relative rounded-xl border border-border bg-white/90 p-2.5 transition-colors hover:border-[#2c7a3e]/50 hover:bg-accent"
+          >
+            <ShoppingCart className="h-5 w-5 text-[#0d4c74]" aria-hidden />
+            {hasMounted && cartCount > 0 && (
+              <span
+                className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#b3392f] px-1 text-[11px] font-extrabold text-white shadow"
+                aria-hidden
+              >
+                {cartCount > 99 ? "99+" : cartCount}
+              </span>
+            )}
+          </Link>
+
           {/* Phone CTA */}
           <a href="tel:+302310644512" className="hidden sm:block">
             <Button className="gap-2 rounded-xl bg-[#2c7a3e] px-4 font-heading font-bold shadow-lg shadow-[#2c7a3e]/25 hover:bg-[#256d34]">
@@ -152,6 +176,19 @@ export function SiteHeader() {
                     2310 644 512
                   </Button>
                 </a>
+                <Link
+                  href="/kalathi"
+                  onClick={() => setOpen(false)}
+                  className="mt-3 flex items-center justify-center gap-2 rounded-xl border border-[#0d4c74]/25 px-3 py-3 text-base font-semibold text-[#0d4c74]"
+                >
+                  <ShoppingCart className="h-5 w-5" aria-hidden />
+                  Καλάθι Αγορών
+                  {hasMounted && cartCount > 0 && (
+                    <span className="rounded-full bg-[#b3392f] px-2 py-0.5 text-xs font-extrabold text-white">
+                      {cartCount}
+                    </span>
+                  )}
+                </Link>
               </nav>
             </SheetContent>
           </Sheet>

@@ -87,3 +87,38 @@ Work Log:
 Stage Summary:
 - Παραδοτέο: αναβαθμισμένο multi-page site με 3D σκηνή «como το λογότυπο», πανταχού παρούσα scroll κίνηση (stagger/counters/grow-line/progress bar), διορθωμένη αντίθεση κουμπιών/link, στοιχεία εμπιστοσύνης (εγγύηση 10 ετών, μαρτυρίες, ωράρια), επαγγελματικό ελληνικό περιεχόμενο και πλήρες SEO
 - Αλλαγμένα αρχεία: solar-3d.tsx (rewrite), reveal.tsx (rewrite), hero.tsx (rewrite), scroll-progress.tsx (νέο), hero-3d.tsx, sections.tsx (TrustBar/Testimonials/contrast/stagger), layout.tsx, page.tsx, footer.tsx, globals.css, etaireia/page.tsx, scripts/*.mjs
+
+---
+Task ID: 4
+Agent: Super Z (main agent)
+Task: Πλήρες e-shop με ξεχωριστές σελίδες προϊόντων (τιμές, χαρακτηριστικά, εκπτώσεις με σβησμένη παλιά τιμή, σχετικά προϊόντα), καλάθι αγορών, παραγγελία μέσω φόρμας επικοινωνίας (τηλεφωνική επιβεβαίωση, χωρίς online πληρωμή) και νέα σελίδα Υπηρεσίες με διαδραστικό 3D εξερευνητή ολοκληρωμένων πακέτων σε χρώματα λογότυπου.
+
+Work Log:
+- src/lib/products-data.ts: κατάλογος 14 προϊόντων σε 5 κατηγορίες (inverters Deye 6/8/12/20kW, μπαταρίες V-TAC/DEYE/HV Rack, πάνελ 500W/700W, 3 ολοκληρωμένα πακέτα, στηρίγματα+logger) με τιμές με ΦΠΑ, oldPrice εκπτώσεις, specs πίνακες, πλούσιες ελληνικές περιγραφές, highlights, includes, related, badges, stock — με helpers formatPrice/discountPct/getProduct/FEATURED_SLUGS
+- Καθαρισμός garbled ελληνικών (scripts/fix_products_greek.py, 15 διορθώσεις)
+- src/lib/cart-store.ts: Zustand store + persist (localStorage, key prostegi-cart-v1), addItem/removeItem/setQty/clearCart, computeCart (γραμμές/total/savings), productsLabel (ελληνική κλίση 1 προϊόν / N προϊόντα)
+- prisma/schema.prisma: νέο model OrderRequest (name, phone, email, city, contactTime, items JSON, total, savings, notes, status) + db:push
+- src/app/api/order/route.ts: POST με zod validation, εγγραφή σε βάση, ελληνικά error messages — δοκιμάστηκε με curl + browser (εγγραφή OK, cleanup μετά)
+- src/components/site/price-tag.tsx: PriceTag με σβησμένη παλιά τιμή (red decoration) + badge -%
+- src/components/site/product-card.tsx: καρτέλα e-shop (badge ΕΚΠΤΩΣΗ/-%, ΝΕΟ, BEST SELLER, stock chips «Άμεση παραλαβή»/«Κατόπιν παραγγελίας», τιμή με έκπτωση, Προσθήκη στο Καλάθι, Λεπτομέρειες)
+- src/components/site/add-to-cart-button.tsx: client κουμπί με toast + επιβεβαίωση «Προστέθηκε!»
+- src/components/site/catalog-grid.tsx: φίλτρα κατηγοριών (tabs με counts, animated) + πλέγμα προϊόντων
+- /proionta: νέο shop grid + ItemList JSON-LD με offers/τιμές για όλα τα 14 προϊόντα + ενότητα «Πώς γίνεται η παραγγελία» 3 βημάτων + deep dives
+- /proionta/[slug]: 14 στατικές σελίδες προϊόντων (generateStaticParams + generateMetadata per product), Product JSON-LD (price, priceValidUntil, InStock/PreOrder), breadcrumbs (visible + BreadcrumbList), PriceTag lg με εξοικονόμηση, trust chips, highlights, περιγραφή, specs πίνακας, includes για πακέτα, «ποσότητες → καλύτερη τιμή στο τηλέφωνο», Σχετικά Προϊόντα
+- /kalathi: σελίδα καλαθιού (CartView: qty +/-, αφαίρεση, σύνοψη με έκπτωση, CTA ολοκλήρωσης, empty state, spinner μέχρι hydration) — noindex
+- /oloklirosi-paraggelias: φόρμα τηλεφωνικής παραγγελίας (CheckoutForm: ονοματεπώνυμο, τηλέφωνο, email, πόλη, ώρα κλήσης Select, σχόλια + σύνοψη παραγγελίας sticky) → POST /api/order → success screen «Η παραγγελία σας καταχωρήθηκε!» + clearCart — noindex
+- src/components/site/package-3d.tsx: νέα R3F σκηνή 3 παραλλαγών (net: σπίτι+μπαταρία+inverter+στύλος δικτύου, hybrid: τοίχος μπαταριών+inverter, pro: αποθήκη+HV racks+3 σειρές εδάφους) με VariantGroup smooth scale transition, PvModule/Sun/Tree/Bush επαναχρησιμοποιήσιμα, quality tiers + IntersectionObserver pause
+- src/components/site/package-3d-explorer.tsx: tabs (Net-Billing/Υβριδικό/Επαγγελματικό) + κάρτα συνδεδεμένη με πραγματικά προϊόντα πακέτων (τιμή, έκπτωση, Προσθήκη στο Καλάθι, Χαρακτηριστικά)
+- /ypiresies: νέα σελίδα υπηρεσιών — 3D εξερευνητής + 6 υπηρεσίες (Μελέτη, Άδειες ΔΕΔΔΗΕ, Εγκατάσταση, Monitoring, Αναβαθμίσεις μπαταριών, Συντήρηση) + CTA, Service JSON-LD
+- header.tsx: nav «Υπηρεσίες», εικονίδιο καλαθιού με badge count (useHasMounted με useSyncExternalStore για hydration safety), καλάθι και στο mobile Sheet
+- footer: «E-shop Προϊόντων» + «Υπηρεσίες & Πακέτα»
+- homepage sections.tsx: το Products τώρα δείχνει 4 featured προϊόντα από το catalog με ProductCard (τιμές/εκπτώσεις/καλάθι)
+- SEO: sitemap 22 URLs (8 σελίδες + 14 προϊόντα), robots disallow /kalathi + /oloklirosi-paraggelias, llms.txt ενημερωμένο με e-shop + πακέτα
+- src/hooks/use-has-mounted.ts: useSyncExternalStore pattern (fix lint react-hooks/set-state-in-effect)
+- Επαλήθευση agent-browser: /proionτα φίλτρα+cards OK, product page (τιμή 1.190€ σβησμένη 1.390€ -14%, specs, related) OK, add-to-cart → badge «(1 προϊόν)» OK, /kalathi qty 2 × 1.190€=2.380€ OK, checkout → submit → «Η παραγγελία σας καταχωρήθηκε!» OK, DB εγγραφή σωστή (cleanup), /ypiresies 3D σκηνή renders (screenshot: σπίτι+πάνελ+μπαταρία+στύλος σε brand χρώματα), tab switch → κάρτα Υβριδικού OK, empty cart OK, JSON-LD Product/ItemList/Service OK, 24/24 routes 200, sitemap 22 urls, console καθαρό (μόνο benign THREE.Clock deprecation), lint καθαρό, tsc src καθαρό
+- Σημείωση: sandbox kills background processes between tool calls — dev server χρειάζεται επανεκκίνηση ανά call (scripts/devtest.sh), το πρόγραμμα δεν επηρεάζεται
+
+Stage Summary:
+- Παραδοτέο: πλήρες e-shop (14 προϊόντα, 14 σελίδες προϊόντων, καλάθι, παραγγελία με τηλεφωνική επιβεβαίωση χωρίς online πληρωμή) + σελίδα Υπηρεσίες με διαδραστικό 3D εξερευνητή πακέτων σε χρώματα λογότυπου — όλα με πλούσιο SEO (Product/ItemList/Service JSON-LD, sitemap με προϊόντα, noindex σε utility σελίδες)
+- Νέα αρχεία: src/lib/products-data.ts, src/lib/cart-store.ts, src/app/api/order/route.ts, src/app/proionta/[slug]/page.tsx, src/app/kalathi/page.tsx, src/app/oloklirosi-paraggelias/page.tsx, src/app/ypiresies/page.tsx, src/components/site/{price-tag,product-card,add-to-cart-button,catalog-grid,cart-view,checkout-form,package-3d,package-3d-explorer}.tsx, src/hooks/use-has-mounted.ts, scripts/{fix_products_greek.py,devtest.sh}
+- Τροποποιημένα: prisma/schema.prisma (OrderRequest), header.tsx, footer.tsx, sections.tsx, proionta/page.tsx, sitemap.ts, robots.ts, llms.txt

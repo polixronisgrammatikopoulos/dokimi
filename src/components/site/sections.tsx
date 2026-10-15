@@ -26,6 +26,12 @@ import {
   RevealItem,
   GrowLine,
 } from "@/components/site/reveal";
+import { ProductCard } from "@/components/site/product-card";
+import {
+  PRODUCTS,
+  FEATURED_SLUGS,
+  getProduct,
+} from "@/lib/products-data";
 import { cn } from "@/lib/utils";
 
 /* ---------------- Section header ---------------- */
@@ -339,112 +345,44 @@ export function Solutions() {
   );
 }
 
-/* ---------------- Προϊόντα ---------------- */
+/* ---------------- Προϊόντα (E-shop showcase) ---------------- */
 
-const PRODUCTS = [
-  {
-    image: "/products/deye-inverter.png",
-    alt: "Υβριδικός inverter Deye",
-    title: "DEYE Inverters 48V",
-    subtitle: "6 kW – 20 kW",
-    description:
-      "Υβριδικοί αντιστροφείς τελευταίας γενιάς με παράλληλη λειτουργία, παρακολούθηση από κινητό και υψηλή απόδοση μετατροπής.",
-    tags: ["Wi-Fi Monitor", "Παράλληλη Λειτουργία"],
-  },
-  {
-    image: "/products/vtac-battery.png",
-    alt: "Μπαταρία λιθίου V-TAC 10kWh 48V",
-    title: "Μπαταρίες V-TAC & DEYE",
-    subtitle: "10 kWh · 48V LFP",
-    description:
-      "Μπαταρίες λιθίου LiFePO4 με 6.000+ κύκλους ζωής, ενσωματωμένο BMS ασφαλείας και συμπαγές κρεμαστό σχέδιο.",
-    tags: ["6.000+ Κύκλοι", "BMS Ασφαλείας"],
-  },
-  {
-    image: "/products/deye-rack.png",
-    alt: "Σύστημα μπαταριών Deye High Voltage Rack",
-    title: "DEYE High Voltage Racks",
-    subtitle: "200V – 500V DC",
-    description:
-      "Επαγγελματικά συστήματα αποθήκευσης τύπου rack για μεγάλες ενεργειακές απαιτήσεις, πλήρως επεκτάσιμα ανά άβαφα module.",
-    tags: ["Επεκτάσιμα", "Εμπορικές Εφαρμογές"],
-  },
-  {
-    image: "/products/solar-panels.png",
-    alt: "Μονοκρυσταλλικά φωτοβολταϊκά πάνελ 500W-700W",
-    title: "Φωτοβολταϊκά Πάνελ",
-    subtitle: "500W / 700W Μονοκρυσταλλικά",
-    description:
-      "Πάνελ τελευταίας γενιάς με υψηλή απόδοση ακόμα και σε συννεφιά, αντοχή σε χαλάζι και εγγύηση απόδοσης 25–30 ετών.",
-    tags: ["Υψηλή Απόδοση", "Εγγύηση 25–30 Ετών"],
-  },
-];
+const FEATURED = FEATURED_SLUGS.map((s) => getProduct(s)!).filter(Boolean);
 
 export function Products() {
   return (
     <section id="proionta" className="bg-[#f5f3ec] py-16 sm:py-24" aria-label="Προϊόντα">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          eyebrow="Τα Προϊόντα μας"
-          title="Εξοπλισμός Κορυφαίων Μαρκών"
-          subtitle="Συνεργαζόμαστε με τους πιο αξιόπιστους κατασκευαστές παγκοσμίως, ώστε κάθε εγκατάσταση να λειτουργεί αψεγίδιαστα για δεκαετίες."
+          eyebrow="E-shop & Προϊόντα"
+          title="Εξοπλισμός Κορυφαίων Μαρκών, με Διαφανείς Τιμές"
+          subtitle="Συνεργαζόμαστε με τους πιο αξιόπιστους κατασκευαστές παγκοσμίως — Deye, V-TAC, Tier-1 πάνελ — ώστε κάθε εγκατάσταση να λειτουργεί αψεγίδιαστα για δεκαετίες. Προσθέστε στο καλάθι και σας καλούμε εμείς."
         />
 
         <RevealStagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {PRODUCTS.map((product) => (
-            <RevealItem key={product.title} className="h-full">
-              <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[#0d4c74]/10">
-                <div className="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-white to-[#eef1ea] p-5">
-                  <Image
-                    src={product.image}
-                    alt={product.alt}
-                    width={400}
-                    height={400}
-                    className="max-h-full w-auto object-contain transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="flex flex-1 flex-col p-5">
-                  <p className="text-xs font-bold uppercase tracking-wider text-[#2c7a3e]">
-                    {product.subtitle}
-                  </p>
-                  <h3 className="mt-1.5 font-heading text-lg font-extrabold text-[#0d4c74]">
-                    {product.title}
-                  </h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-                    {product.description}
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {product.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-[#eaf2f8] px-2.5 py-1 text-[11px] font-bold text-[#0d4c74]"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </article>
+          {FEATURED.map((product) => (
+            <RevealItem key={product.slug} className="h-full">
+              <ProductCard product={product} />
             </RevealItem>
           ))}
         </RevealStagger>
 
         <Reveal delay={0.2} className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <Link href="/epikoinonia">
+          <Link href="/proionta">
             <Button
               size="lg"
               className="h-13 rounded-xl bg-[#2c7a3e] px-7 font-heading text-base font-bold shadow-xl shadow-[#2c7a3e]/25 hover:bg-[#256d34]"
             >
-              Ζητήστε Τιμή για Εξοπλισμό
+              Ολόκληρος Κατάλογος E-shop
             </Button>
           </Link>
-          <Link href="/proionta">
+          <Link href="/ypiresies">
             <Button
               size="lg"
               variant="outline"
               className="h-13 rounded-xl border-[#0d4c74]/30 px-7 font-heading text-base font-bold text-[#0d4c74] hover:bg-[#0d4c74] hover:text-white"
             >
-              Ολοκλημένος Κατάλογος Προϊόντων
+              Υπηρεσίες &amp; Πακέτα με Εγκατάσταση
             </Button>
           </Link>
         </Reveal>
